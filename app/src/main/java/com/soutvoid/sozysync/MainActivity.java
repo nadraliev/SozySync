@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 /**
  * Created by andrew on 20.04.16.
@@ -29,17 +28,23 @@ public class MainActivity extends AppCompatActivity implements ConnectionsListFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //initialize toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ProfilesListFragment profilesListFragment = new ProfilesListFragment();
 
+        //get fragment manager
         final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        //put first fragment into container
         fragmentManager.beginTransaction().add(R.id.main_frame, profilesListFragment).commit();
 
+        //initialize drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
 
+        //initialize navigator
         navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -49,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionsListFr
                 else item.setChecked(true);
 
                 setTitle(item.getTitle());
+
                 drawerLayout.closeDrawers();
 
                 Fragment newFragment = null;
@@ -64,11 +70,13 @@ public class MainActivity extends AppCompatActivity implements ConnectionsListFr
 
                 try {
                     newFragment = (Fragment) fragmentClass.newInstance();
+                    //prepare transaction
+                    fragmentManager.beginTransaction().replace(R.id.main_frame, newFragment).commit();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                fragmentManager.beginTransaction().replace(R.id.main_frame, newFragment).commit();
 
                 return true;
             }
@@ -98,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionsListFr
     }
 
     public void onFragmentInteraction(Uri uri) {
-
+        //sample
     }
 
 }

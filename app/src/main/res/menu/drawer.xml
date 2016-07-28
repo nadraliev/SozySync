@@ -5,11 +5,13 @@
         <item
             android:id="@+id/drawer_profiles"
             android:checked="false"
-            android:title="@string/profiles"/>
+            android:title="@string/profiles"
+            android:icon="@drawable/ic_cached_white_24dp"/>
         <item
             android:id="@+id/drawer_connections"
             android:checked="false"
-            android:title="@string/connections"/>
+            android:title="@string/connections"
+            android:icon="@drawable/ic_cloud_white_24dp"/>
     </group>
 
 </menu>
